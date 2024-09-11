@@ -1,0 +1,87 @@
+<div class="content">
+  <form [formGroup]="studentForm" (ngSubmit)="onSubmit()">
+    <h3 class="text-align">Student Form</h3>
+    <mat-form-field>
+      <mat-label>Student Name</mat-label>
+      <input
+        matInput
+        formControlName="name"
+        placeholder="Enter student name"
+        required
+      />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input
+        matInput
+        formControlName="email"
+        placeholder="Enter student email"
+        required
+      />
+    </mat-form-field>
+    <mat-radio-group formControlName="gender">
+      <mat-radio-button value="Male">Male</mat-radio-button>
+      <mat-radio-button value="Female">Female</mat-radio-button>
+    </mat-radio-group>
+    <mat-form-field>
+      <mat-label>Course/Master</mat-label>
+      <mat-select formControlName="course" required>
+        <mat-option value="degree">Degree Program</mat-option>
+        <mat-option value="diploma">Diploma Program</mat-option>
+        <mat-option value="cetificate">Certificate Program</mat-option>
+        <mat-option value="shortterm">Short-term Course</mat-option>
+        <mat-option value="Professional"
+          >Professional Development Course</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+    <mat-checkbox formControlName="isTerm" required>
+      I agree to the Terms and Conditions.</mat-checkbox
+    >
+    <button mat-raised-button color="primary" type="submit">Submit</button>
+  </form>
+
+  <table mat-table [dataSource]="students" class="mat-elevation-z8">
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Name</th>
+      <td mat-cell *matCellDef="let stud">{{ stud.name }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef>Email</th>
+      <td mat-cell *matCellDef="let stud">{{ stud.email }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="gender">
+      <th mat-header-cell *matHeaderCellDef>Gender</th>
+      <td mat-cell *matCellDef="let stud">{{ stud.gender }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="course">
+      <th mat-header-cell *matHeaderCellDef>Course</th>
+      <td mat-cell *matCellDef="let stud">{{ stud.course }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="isTerm">
+      <th mat-header-cell *matHeaderCellDef>Terms Condition</th>
+      <td mat-cell *matCellDef="let stud">
+        {{ stud.isTerm ? "Yes" : "No" }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let stud">
+        <button mat-button color="primary" (click)="editStudent(stud)">
+          Edit
+        </button>
+        <button mat-button color="warn" (click)="deleteStudent(stud)">
+          Delete
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</div>
